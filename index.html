@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="analytics.js"></script>
+<title>Démétérre optimalizált donor motivációs keretrendszer — v4</title>
+<meta name="description" content="6 motivációs mag + 3 modulátor: kampány-briefre fordítható donor motivációs rendszer a Démétér Alapítvány számára.">
+<meta name="author" content="Iván">
+<meta name="theme-color" content="#1A1A1A">
+<meta property="og:title" content="Démétérre optimalizált donor motivációs keretrendszer — v4">
+<meta property="og:description" content="6 motivációs mag + 3 modulátor — kampány-briefre fordítható donor motivációs rendszer nonprofit szervezetek számára.">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="hu_HU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Donor motivációs keretrendszer v4 — Démétér">
+<meta name="twitter:description" content="6 motivációs mag + 3 overlay — Démétér Alapítvány fundraising keretrendszer.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#C8A23C;--gold-light:#E8D48B;--gold-dark:#8A6D1B;--ink:#1A1A1A;--paper:#FAF8F3;--paper-warm:#F5F0E6;--rose:#D4698A;--rose-light:#F2D5DF;--teal:#2A7B6F;--teal-light:#D0EDE8;--amber:#D4860B;--amber-light:#FBE8C8;--violet:#6B4C8A;--violet-light:#E4D6F0;--sky:#3B82B8;--sky-light:#D4E8F7;--coral:#C75B3A;--coral-light:#F5DDD3;--sage:#6B8E5A;--sage-light:#D8E8CF;--emergency:#C0392B;--emergency-light:#F5D0CC;--slate:#4A5568;--font-display:'Playfair Display',Georgia,serif;--font-body:'DM Sans',-apple-system,sans-serif;--font-mono:'JetBrains Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font-body);background:var(--paper);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+.floating-nav{position:fixed;right:1.2rem;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:2px;background:rgba(26,26,26,.92);backdrop-filter:blur(12px);padding:.6rem .4rem;border-radius:2rem;box-shadow:0 4px 24px rgba(0,0,0,.18)}
+.floating-nav a{display:flex;flex-direction:column;align-items:center;padding:.45rem .5rem;text-decoration:none;color:rgba(255,255,255,.5);border-radius:1.2rem;transition:all .3s;font-size:.6rem;letter-spacing:.04em}
+.floating-nav a:hover,.floating-nav a.active{color:var(--gold);background:rgba(200,162,60,.12)}
+.floating-nav .icon{font-size:1rem;line-height:1}
+.floating-nav span:first-child{font-family:var(--font-mono);font-size:.55rem;text-transform:uppercase}
+.nav-divider{height:1px;background:rgba(255,255,255,.12);margin:.3rem .4rem}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:4rem 2rem;position:relative;overflow:hidden;background:linear-gradient(165deg,var(--ink) 0%,#2C2416 40%,#3D2E12 100%)}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 800px 600px at 20% 50%,rgba(200,162,60,.15),transparent),radial-gradient(ellipse 600px 400px at 80% 30%,rgba(212,105,138,.08),transparent);pointer-events:none}
+.hero::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none}
+.hero-content{position:relative;z-index:1;max-width:900px;margin:0 auto;text-align:center}
+.hero-label{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem;opacity:.8}
+.hero h1{font-family:var(--font-display);font-size:clamp(2.2rem,5vw,3.8rem);color:#FAF8F3;line-height:1.15;font-weight:700;margin-bottom:1.5rem}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero-subtitle{font-size:1.15rem;color:rgba(250,248,243,.65);max-width:700px;margin:0 auto 3rem;line-height:1.7}
+.hero-stats{display:flex;justify-content:center;gap:4rem}
+.hero-stat-number{font-family:var(--font-display);font-size:2.8rem;font-weight:900;color:var(--gold)}
+.hero-stat-label{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(250,248,243,.45);margin-top:.3rem}
+.version-badge{position:fixed;bottom:1.5rem;left:1.5rem;z-index:100;background:rgba(26,26,26,.85);backdrop-filter:blur(8px);color:var(--gold);font-family:var(--font-mono);font-size:.65rem;padding:.4rem .8rem;border-radius:1rem;letter-spacing:.08em}
+.section-label{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-dark);margin-bottom:.8rem}
+.section-title{font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:700;line-height:1.2;margin-bottom:1.5rem;color:var(--ink)}
+.section-title::after{content:'';display:block;height:3px;background:var(--gold);width:0;margin-top:.5rem;animation:slideUnderline .8s ease forwards}
+.methodology{padding:6rem 2rem;background:var(--paper-warm)}
+.methodology-inner{max-width:1100px;margin:0 auto}
+.methodology-text{font-size:1.1rem;line-height:1.8;color:var(--slate);max-width:750px;margin-bottom:2rem}
+.criteria-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin:2rem 0}
+.criteria-card{background:white;padding:1.4rem;border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.04);text-align:center;transition:transform .3s}
+.criteria-card:hover{transform:translateY(-3px)}
+.criteria-card .num{font-family:var(--font-mono);font-size:1.8rem;font-weight:700;color:var(--gold);margin-bottom:.5rem}
+.criteria-card h3{font-family:var(--font-display);font-size:.95rem;margin-bottom:.4rem}
+.criteria-card p{font-size:.82rem;color:var(--slate);line-height:1.5}
+.key-insight{max-width:1100px;margin:2rem auto 0;padding:2rem 2.5rem;background:linear-gradient(135deg,rgba(200,162,60,.08),rgba(200,162,60,.03));border-left:4px solid var(--gold);border-radius:0 12px 12px 0}
+.key-insight h3{font-family:var(--font-display);font-size:1.1rem;color:var(--gold-dark);margin-bottom:.7rem}
+.key-insight p{font-size:.95rem;color:var(--slate);line-height:1.7}
+.cores-section{padding:6rem 2rem 3rem}
+.cores-inner{max-width:1100px;margin:0 auto}
+.core-card{margin-bottom:3rem;border-radius:16px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.06);background:white;transition:transform .3s}
+.core-card:hover{transform:translateY(-2px)}
+.core-header{display:flex;align-items:center;gap:1.5rem;padding:2rem 2.5rem;color:white;flex-wrap:wrap}
+.core-avatar{width:56px;height:56px;border-radius:14px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0}
+.core-meta{flex:1;min-width:200px}
+.core-type{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;opacity:.7;margin-bottom:.3rem}
+.core-name{font-family:var(--font-display);font-size:1.6rem;font-weight:700;line-height:1.2}
+.core-tagline{font-style:italic;font-size:.92rem;opacity:.8;margin-top:.3rem}
+.core-badge{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;padding:.4rem 1rem;border:1px solid rgba(255,255,255,.3);border-radius:2rem;white-space:nowrap}
+.core-1 .core-header{background:linear-gradient(135deg,var(--rose),#b85578)}
+.core-2 .core-header{background:linear-gradient(135deg,var(--teal),#1f5f56)}
+.core-3 .core-header{background:linear-gradient(135deg,var(--amber),#b87208)}
+.core-4 .core-header{background:linear-gradient(135deg,var(--sky),#2d6a9a)}
+.core-5 .core-header{background:linear-gradient(135deg,var(--violet),#533a6d)}
+.core-6 .core-header{background:linear-gradient(135deg,var(--coral),#a14a2e)}
+.core-body{padding:2rem 2.5rem 2.5rem;display:grid;grid-template-columns:1fr 1fr;gap:1.5rem 2.5rem}
+.cb h4{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--slate);margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem}
+.cb p,.cb li{font-size:.92rem;line-height:1.6;color:var(--ink)}
+.cb ul{list-style:none;padding:0}
+.cb ul li{padding-left:1.2rem;position:relative;margin-bottom:.3rem}
+.cb ul li::before{content:'→';position:absolute;left:0;color:var(--slate);font-size:.8rem}
+.cb.full{grid-column:1/-1}
+.tag{display:inline-block;font-family:var(--font-mono);font-size:.6rem;padding:.1rem .4rem;border-radius:4px;vertical-align:middle;margin-left:.3rem}
+.tag-r{background:rgba(42,123,111,.12);color:var(--teal)}
+.tag-h{background:rgba(212,134,11,.12);color:var(--amber)}
+.trust-box{background:rgba(42,123,111,.05);border-left:3px solid var(--teal);padding:1rem 1.2rem;border-radius:0 8px 8px 0}
+.lose-box{background:rgba(192,57,43,.05);border-left:3px solid var(--emergency);padding:1rem 1.2rem;border-radius:0 8px 8px 0}
+.demeter-box{background:rgba(200,162,60,.06);border-left:3px solid var(--gold);padding:1rem 1.2rem;border-radius:0 8px 8px 0}
+.journey-box{background:rgba(59,130,184,.05);border-left:3px solid var(--sky);padding:1rem 1.2rem;border-radius:0 8px 8px 0}
+.test-box{background:rgba(107,76,138,.05);border-left:3px solid var(--violet);padding:1rem 1.2rem;border-radius:0 8px 8px 0}
+.overlay-section{padding:5rem 2rem;background:var(--paper-warm)}
+.overlay-inner{max-width:1100px;margin:0 auto}
+.overlay-card{background:white;padding:2rem 2.5rem;border-radius:12px;margin-bottom:1.5rem;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.04);border-top:3px dashed var(--gold)}
+.overlay-card h3{font-family:var(--font-display);font-size:1.2rem;margin-bottom:.6rem}
+.overlay-card .overlay-tag{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;background:rgba(200,162,60,.12);color:var(--gold-dark);padding:.2rem .6rem;border-radius:4px;margin-bottom:.8rem;display:inline-block}
+.overlay-card p{font-size:.92rem;color:var(--slate);line-height:1.65;margin-bottom:.5rem}
+.comparison-section{padding:5rem 2rem}
+.comparison-inner{max-width:1200px;margin:0 auto;overflow-x:auto}
+.mtable{width:100%;border-collapse:separate;border-spacing:0;font-size:.83rem;background:white;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.04)}
+.mtable thead{background:var(--ink);color:rgba(250,248,243,.85)}
+.mtable th{padding:.9rem 1rem;text-align:left;font-family:var(--font-mono);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+.mtable td{padding:.8rem 1rem;border-bottom:1px solid rgba(0,0,0,.05);vertical-align:top}
+.mtable tbody tr{transition:background .3s}
+.mtable tbody tr:hover{background:rgba(200,162,60,.05)}
+.mtable tbody tr:last-child td{border-bottom:none}
+.tdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:.5rem;vertical-align:middle}
+.tname{font-weight:600;white-space:nowrap}
+.theory-section{padding:5rem 2rem;background:var(--paper-warm)}
+.theory-inner{max-width:1100px;margin:0 auto}
+.theory-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2.5rem}
+.theory-card{background:white;padding:2rem;border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.04)}
+.theory-card h3{font-family:var(--font-display);font-size:1.1rem;margin-bottom:.8rem}
+.theory-card p,.theory-card li{font-size:.9rem;color:var(--slate);line-height:1.6}
+.theory-card ol{padding-left:1.5rem;margin-top:.5rem}
+.theory-card ol li{margin-bottom:.3rem}
+.incubation-section{padding:5rem 2rem}
+.incubation-inner{max-width:1100px;margin:0 auto}
+.incubation-card{background:white;padding:1.5rem 2rem;border-radius:12px;margin-bottom:1.2rem;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.04);border-left:3px dotted var(--slate)}
+.incubation-card h4{font-family:var(--font-display);font-size:1rem;margin-bottom:.4rem}
+.incubation-card p{font-size:.88rem;color:var(--slate);line-height:1.6}
+.promo-rule{background:white;padding:1.5rem 2rem;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.04);margin-top:2rem;border-left:3px solid var(--gold)}
+.promo-rule h3{font-family:var(--font-display);font-size:1.1rem;margin-bottom:.6rem;color:var(--gold-dark)}
+.promo-rule ol{padding-left:1.5rem}
+.promo-rule li{font-size:.9rem;color:var(--slate);line-height:1.6;margin-bottom:.3rem}
+.site-footer{padding:3rem 2rem;background:var(--ink);color:rgba(250,248,243,.4);text-align:center;font-size:.8rem}
+.site-footer a{color:var(--gold);text-decoration:none}
+@media(max-width:768px){.floating-nav{display:none}.hero-stats{gap:2rem;flex-wrap:wrap}.core-body{grid-template-columns:1fr}.theory-grid{grid-template-columns:1fr}.criteria-grid{grid-template-columns:1fr 1fr}.roadmap-phases{grid-template-columns:1fr}.core-header{padding:1.5rem}.core-body{padding:1.5rem}.hero{padding:3rem 1.5rem}.playbook-step{flex-direction:column;gap:.8rem}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideUnderline{from{width:0}to{width:80px}}
+.reveal{opacity:0;transform:translateY(24px);transition:all .7s cubic-bezier(.22,1,.36,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal:nth-child(2){transition-delay:.08s}.reveal:nth-child(3){transition-delay:.16s}.reveal:nth-child(4){transition-delay:.24s}.reveal:nth-child(5){transition-delay:.32s}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--gold-dark);border-radius:3px}
+</style>
+</head>
+<body>
+<nav class="floating-nav">
+<a href="#metodologia"><span>Módszer</span><span class="icon">📋</span></a>
+<a href="#mag-1"><span>M1</span><span class="icon">♡</span></a>
+<a href="#mag-2"><span>M2</span><span class="icon">🌿</span></a>
+<a href="#mag-3"><span>M3</span><span class="icon">🌟</span></a>
+<a href="#mag-4"><span>M4</span><span class="icon">☁️</span></a>
+<a href="#mag-5"><span>M5</span><span class="icon">🔮</span></a>
+<a href="#mag-6"><span>M6</span><span class="icon">🌊</span></a>
+<div class="nav-divider"></div>
+<a href="#overlays"><span>Overlay</span><span class="icon">⚡</span></a>
+<a href="#matrix"><span>Mátrix</span><span class="icon">📊</span></a>
+<a href="#elmeleti"><span>Elméleti</span><span class="icon">📚</span></a>
+<a href="#inkubacio"><span>Függelék</span><span class="icon">📦</span></a>
+</nav>
+<div class="version-badge">v4 — 2026.03 — Démétér</div>
+
+<section class="hero">
+<div class="hero-content">
+<div class="hero-label">Démétérre optimalizált donor motivációs keretrendszer</div>
+<h1><em>6 motivációs mag</em> + 3 modulátor — kampány-briefre fordítható rendszer</h1>
+<p class="hero-subtitle">Nem „ki ez az ember?" — hanem „milyen döntési logikában van most?" Primer motivációs magok, amelyek eltérő bizonyítékigényt, hangnemet, csatornát és lemorzsolódási okot húznak maguk után — Démétér-specifikus példákkal és tesztötletekkel.</p>
+<div class="hero-stats">
+<div class="hero-stat"><div class="hero-stat-number">6</div><div class="hero-stat-label">PRIMER MAG</div></div>
+<div class="hero-stat"><div class="hero-stat-number">3</div><div class="hero-stat-label">MODULÁTOR</div></div>
+<div class="hero-stat"><div class="hero-stat-number">6</div><div class="hero-stat-label">A/B TESZTÖTLET</div></div>
+</div>
+</div>
+</section>
+
+<section class="methodology" id="metodologia">
+<div class="methodology-inner">
+<div class="section-label">Módszertan</div>
+<h2 class="section-title">Magok vs. modulátorok — mi a különbség?</h2>
+<p class="methodology-text">A v3 „8 motivációs mód" jó kiindulópont volt, de <strong>keverte a primer „miért" típusú motivációkat a helyzeti aktivátorokkal</strong>. A „sürgősség" nem magyarázza meg, miért ad valaki — csak azt, hogy miért <em>most</em>. A „hit" nem önálló döntési logika Démétérnél — inkább keretezés, ami ráülhet más magokra.</p>
+<p class="methodology-text" style="margin-top:-1rem">A v4 ezért szétválasztja: <strong>6 primer motivációs mag</strong> (önálló döntési logikával) és <strong>3 modulátor/overlay</strong> (amelyek bármelyik magra ráülhetnek, de önmagukban nem magyarázzák a „miért"-et).</p>
+<h3 style="font-family:var(--font-display);font-size:1.15rem;margin:2rem 0 1rem">Mikor „mag" valami? — A négyes teszt</h3>
+<div class="criteria-grid">
+<div class="criteria-card reveal"><div class="num">1</div><h3>Önálló döntési mondat</h3><p>Egyetlen mondatban megfogalmazható „miért", ami nem csak „most/itt" aktiváció.</p></div>
+<div class="criteria-card reveal"><div class="num">2</div><h3>Eltérő bizonyítékigény</h3><p>Mitől hiszi el? Történet, számok, közösségi bizonyíték, diszkréció, személyes kapcsolat?</p></div>
+<div class="criteria-card reveal"><div class="num">3</div><h3>Eltérő csatorna</h3><p>Más formátum- és csatornapreferencia: rövid videó vs. éves jelentés vs. személyes megkeresés.</p></div>
+<div class="criteria-card reveal"><div class="num">4</div><h3>Jellegzetes lemorzsolódás</h3><p>Van tipikus „red flag", amin elcsúszik — és ez más, mint a többi magé.</p></div>
+</div>
+<div class="key-insight">
+<h3>📊 Kutatás vs. 🔬 Hipotézis</h3>
+<p><span class="tag tag-r">📊 KUTATÁS</span> = nemzetközi adományozás-kutatásra épül (Bekkers &amp; Wiepking, Giving USA, Adjukössze platformadat). <span class="tag tag-h">🔬 HIPOTÉZIS</span> = Démétér-specifikus becslés, validálandó belső adatokkal / tesztekkel.</p>
+</div>
+</div>
+</section>
+
+<section class="cores-section" id="magok">
+<div class="cores-inner">
+<div class="section-label">6 Primer Motivációs Mag</div>
+<h2 class="section-title" style="margin-bottom:3rem">Minden mag = eltérő döntési logika</h2>
+
+<div id="mag-1" class="core-card core-1 reveal">
+<div class="core-header"><div class="core-avatar">&#9829;</div><div class="core-meta"><div class="core-type">Mag #1</div><div class="core-name">Empátia</div><div class="core-tagline">„A család együtt maradjon. Nem bírom nézni."</div></div><div class="core-badge">GONDOSKODÁS-VEZÉRELT</div></div>
+<div class="core-body">
+<div class="cb"><h4>Döntési mondat</h4><p>„Mi lenne, ha ez az én gyerekem lenne?" — azonnali empátiás válasz. Az adomány nem terv, hanem reakció. <span class="tag tag-r">📊</span> Azonosítható áldozat hatás.</p></div>
+<div class="cb"><h4>Bizonyítékigény</h4><p>Név, arc, történet. Valódi fotó — stock nem aktiválja. Az anya–gyerek közelség narratíva Démétérnél természetes erő. Visszacsatolás: „mi lett vele?"</p></div>
+<div class="cb"><h4>Tipikus triggerek</h4><ul><li>Egyéni sors, konkrét nevű gyerek</li><li>„Előtte-utána" — kézzelfogható hatás</li><li>Sürgősség + vizualitás (kép > szöveg)</li><li>„Gondolj bele" — perspektívaváltás</li></ul></div>
+<div class="cb"><h4>Csatornák + hangnem <span class="tag tag-h">🔬</span></h4><ul><li>Facebook tartalom + landing</li><li>Instagram Stories (sztorimesélés)</li><li>Email hírlevél (havi 1×, személyes hangon)</li></ul><p style="margin-top:.5rem">Meleg, emberi, kevés „marketing." Emoji: szabadon — 💔😢💙🍼</p></div>
+<div class="cb full lose-box"><h4>🚩 Mikor veszíted el?</h4><p>Manipulatív érzelemkeltés gyanúja. Túl sok statisztika, túl kevés emberi történet. Stock fotó. Ha 3 hónapig nincs visszajelzés. Ha a kommunikáció reklámszagú.</p></div>
+<div class="cb full trust-box"><h4>🔒 Bizalom: mi építi / mi rombolja</h4><p><strong>Építi:</strong> valós történet + fotó + visszacsatolás + „gondolj bele" nyelv. <strong>Rombolja:</strong> stock-hatás, túlígérés, rendezetlen vizuális megjelenés.</p></div>
+<div class="cb full journey-box"><h4>🛤️ Donor-út</h4><p><strong>Új:</strong> 1 konkrét történet + 1 CTA. Percek alatt dönt. <strong>Visszatérő:</strong> „Mi lett velük?" — korábban megismert alany frissítése. <strong>Elköteleződött:</strong> rendszeres támogatói identitás, havi update.</p></div>
+<div class="cb full demeter-box"><h4>🏠 Démétér-példa</h4><p>Az 1% oldal egyéni idézetei és történetei. „Egy gyerek se legyen egyedül a kórházban" — az anyai jelenlét és család együtt tartása mint központi narratíva.</p></div>
+<div class="cb full test-box"><h4>🧪 A/B tesztötlet + metrika</h4><p><strong>A:</strong> 1 konkrét gyerek/család történet + 1 CTA. <strong>B:</strong> Ugyanaz + „mire ment / mi lett vele" blokk. <strong>Metrika:</strong> CVR, átlag adomány, visszatérési arány 30 nap.</p></div>
+</div></div>
+
+<div id="mag-2" class="core-card core-2 reveal">
+<div class="core-header"><div class="core-avatar">&#9998;</div><div class="core-meta"><div class="core-type">Mag #2</div><div class="core-name">Hatásosság / Kontroll</div><div class="core-tagline">„Csak akkor, ha tudom: célba ér."</div></div><div class="core-badge">KONTROLL-VEZÉRELT</div></div>
+<div class="core-body">
+<div class="cb"><h4>Döntési mondat</h4><p>„Mennyi pénz jut el tényleg a célhoz?" A bizalom az átláthatóságból épül, nem érzelemből. Profi szervezeteket tisztel, kaotikus kampányokat lenéz.</p></div>
+<div class="cb"><h4>Bizonyítékigény</h4><p>Számok, arányok, tételes költés. Overhead ratio. „Minden 100 Ft-ból 87 Ft eljut." Ha nincs letölthető hatásjelentés, nem ad.</p></div>
+<div class="cb"><h4>Tipikus triggerek</h4><ul><li>Transzparencia — pénzfelhasználási kimutatás</li><li>SROI — társadalmi megtérülés</li><li>Adókedvezmény-emlékeztető</li><li>1% felhasználás bemutatása</li></ul></div>
+<div class="cb"><h4>Csatornák + hangnem <span class="tag tag-h">🔬</span></h4><ul><li>1% aloldal + közhasznúsági beszámoló</li><li>Email (adó-szezonban, személyre szabott)</li><li>Éves jelentés (PDF, letölthető, profi)</li></ul><p style="margin-top:.5rem">Tárgyszerű, bizonyíték-alapú. Emoji: minimális — 💙.</p></div>
+<div class="cb full lose-box"><h4>🚩 Mikor veszíted el?</h4><p>Homályos költés. Átláthatatlan szervezeti nyelv. Érzelmi manipuláció. Rendezetlen admin: késő számla, hiányzó igazolás. Amatőr éves beszámoló.</p></div>
+<div class="cb full trust-box"><h4>🔒 Bizalom</h4><p><strong>Építi:</strong> tételes költés + eredmény, overhead ratio, profi admin. <strong>Rombolja:</strong> átláthatatlanság, érzelmi zsarolás, hiányzó éves beszámoló.</p></div>
+<div class="cb full journey-box"><h4>🛤️ Donor-út</h4><p><strong>Új:</strong> 1 bizonyíték (játszótér, GyöngyHáz). Hetek kellenek. <strong>Visszatérő:</strong> rendszeres impact update. <strong>Elköteleződött:</strong> CSR-partnerség, mélyebb riport.</p></div>
+<div class="cb full demeter-box"><h4>🏠 Démétér-példa</h4><p>„Adód 1%-a nálunk célba ér" — konkrét megvalósulás: GyöngyHáz terápiás központ, játszótér. Közhasznúsági beszámolók, tételes eredmények.</p></div>
+<div class="cb full test-box"><h4>🧪 A/B tesztötlet</h4><p><strong>A:</strong> „Kész lett X" — befejezett projekt vizuál. <strong>B:</strong> „Ft→hatás" vizuál. <strong>Metrika:</strong> CVR, scroll depth, „további információ" kattintás.</p></div>
+</div></div>
+
+<div id="mag-3" class="core-card core-3 reveal">
+<div class="core-header"><div class="core-avatar">&#9734;</div><div class="core-meta"><div class="core-type">Mag #3</div><div class="core-name">Identitás / Tartozás</div><div class="core-tagline">„Démétér-család része vagyok."</div></div><div class="core-badge">IDENTITÁS-VEZÉRELT</div></div>
+<div class="core-body">
+<div class="cb"><h4>Döntési mondat</h4><p>„Azok közé tartozom, akik tesznek valamit." Nem a kedvezményezettre gondol — hanem arra, milyen ember ő. Az adományozás identitás-marker.</p></div>
+<div class="cb"><h4>Bizonyítékigény</h4><p>Közösségi bizonyíték: „2.000-en már csatlakoztak." Ha barátok, influencerek támogatják — elég. A szervezet vizuális identitása számít.</p></div>
+<div class="cb"><h4>Triggerek + csatornák</h4><ul><li>„Csatlakozz az ezrekhez" — social proof</li><li>„Büszkén támogatom…" sablonok</li><li>Challenge / gamifikáció</li><li>Közösségi média, zárt FB-csoport</li></ul></div>
+<div class="cb"><h4>Hangnem + adomány <span class="tag tag-h">🔬</span></h4><p>Büszke, bevonó. Emoji: bőven — 🙌✨💙 + hashtag. 1–5k Ft/hó rendszeres, amíg a közösség aktív. Patreon-szerű szint-rendszer.</p></div>
+<div class="cb full lose-box"><h4>🚩 Mikor veszíted el?</h4><p>Közösség elhalkul — nincs új tartalom, nincs „mi" élmény. Rideg intézményi stílus. Nincs badge/szint. Nincs megosztható tartalom.</p></div>
+<div class="cb full trust-box"><h4>🔒 Bizalom</h4><p><strong>Építi:</strong> közösségi bizonyíték + rendszeres kapcsolattartás + vizuálisan vonzó brand. <strong>Rombolja:</strong> csend, amatőr vizualitás, személytelen kommunikáció.</p></div>
+<div class="cb full journey-box"><h4>🛤️ Donor-út</h4><p><strong>Új:</strong> „Ezrek" + könnyű belépés. <strong>Visszatérő:</strong> tagságérzet, insider update. <strong>Elköteleződött:</strong> „Alapító tag", zárt kör, közösségen belüli szerep.</p></div>
+<div class="cb full demeter-box"><h4>🏠 Démétér-példa</h4><p>„Csatlakozz az ezrekhez", „Démétér család", „Legyél Jótündér" — a közösségi identitás aktiválása.</p></div>
+<div class="cb full test-box"><h4>🧪 A/B tesztötlet</h4><p><strong>A:</strong> „Legyél Jótündér" CTA. <strong>B:</strong> „Légy a 8001." (sorszám-alapú). <strong>Metrika:</strong> rendszeres donor feliratkozás, megosztás.</p></div>
+</div></div>
+
+<div id="mag-4" class="core-card core-4 reveal">
+<div class="core-header"><div class="core-avatar">&#9733;</div><div class="core-meta"><div class="core-type">Mag #4</div><div class="core-name">Ágencia</div><div class="core-tagline">„Nem vagyok tehetetlen. 500 Ft is számít."</div></div><div class="core-badge">ÁGENCIA-VEZÉRELT</div></div>
+<div class="core-body">
+<div class="cb"><h4>Döntési mondat</h4><p>„Kis lépés is számít — és én megteszem." Az ágencia-érzet a kulcs: hatásom van. Az adományozás nem áldozat — tett.</p></div>
+<div class="cb"><h4>Bizonyítékigény</h4><p>Konkrét tétel = konkrét hatás. „500 Ft = 1 meleg étel." 1 kattintás/QR + azonnali visszaigazolás. Ha túl bonyolult, feladja.</p></div>
+<div class="cb"><h4>Triggerek + csatornák</h4><ul><li>„Már 500 Ft-tal is" — elérhető összeg</li><li>Kívánságlista: választható tételek</li><li>Telefonos 500 Ft hívás/SMS</li><li>TikTok / IG Reels, offline események</li></ul></div>
+<div class="cb"><h4>Hangnem + adomány <span class="tag tag-h">🔬</span></h4><p>Direkt, egyszerű, „normális nyelven." Ha PR-szagot érez, elfordul. Emoji: mérsékelt — 💔💙🍼. 500–3k Ft, évi 5–10×, impulzív.</p></div>
+<div class="cb full lose-box"><h4>🚩 Mikor veszíted el?</h4><p>Túl bonyolult fizetés. Nincs azonnali sikerélmény. PR-szag, bürokratikus kommunikáció. Stock fotó. „Nem az ő világa" érzés.</p></div>
+<div class="cb full trust-box"><h4>🔒 Bizalom</h4><p><strong>Építi:</strong> 1 kattintás + visszaigazolás + „látom, hova ment." <strong>Rombolja:</strong> túl sok lépés, corporate hangnem, adminisztratív komplexitás.</p></div>
+<div class="cb full journey-box"><h4>🛤️ Donor-út</h4><p><strong>Új:</strong> Mikroadomány, minimális súrlódás. <strong>Visszatérő:</strong> ismételt kihívás-határidők. <strong>Elköteleződött:</strong> rendszeres mikro, ambassador szerep.</p></div>
+<div class="cb full demeter-box"><h4>🏠 Démétér-példa</h4><p>Telefonos támogatás (500 Ft hívás/SMS) + kívánságlista: „pihentető éjszaka", „biztos hely egy hónapra" — kiváló hatás-egység kommunikáció.</p></div>
+<div class="cb full test-box"><h4>🧪 A/B tesztötlet</h4><p><strong>A:</strong> 500 Ft telefonos CTA. <strong>B:</strong> Kívánságlista: „7.500 Ft = tisztítószer 1 hónapra." <strong>Metrika:</strong> completion rate, CPA, ismétlés 14 napon belül.</p></div>
+</div></div>
+
+<div id="mag-5" class="core-card core-5 reveal">
+<div class="core-header"><div class="core-avatar">&#9670;</div><div class="core-meta"><div class="core-type">Mag #5</div><div class="core-name">Jelentőség / Örökség</div><div class="core-tagline">„Építsünk országos megoldást."</div></div><div class="core-badge">ÖRÖKSÉG-VEZÉRELT</div></div>
+<div class="core-body">
+<div class="cb"><h4>Döntési mondat</h4><p>„Az életem értelme nem csak az volt, amit magamnak szereztem." Rendszerszintű, maradandó hatás. Stratégiai partnerség, nem tranzakció.</p></div>
+<div class="cb"><h4>Bizonyítékigény</h4><p>Hosszú távú terv + hiteles roadmap. „Hova tart a szervezet?" A vezető személyes víziója és hitelessége kritikus.</p></div>
+<div class="cb"><h4>Triggerek + csatornák</h4><ul><li>Rendszerszintű vízió, országos bővítés</li><li>Névadó lehetőség, VIP meghívás</li><li>Személyes megkeresés, szervezetlátogatás</li><li>Stratégiai dokumentum, roadmap</li></ul></div>
+<div class="cb"><h4>Hangnem + adomány <span class="tag tag-h">🔬</span></h4><p>Méltóságteljes, stratégiai. „Ön", „tartós", „maradandó." Emoji: szinte semmi. 200k–5M+ Ft, legmagasabb LTV.</p></div>
+<div class="cb full lose-box"><h4>🚩 Mikor veszíted el?</h4><p>„Csak kampányzaj" — nincs vízió. Személyes kapcsolattartó eltűnik. Taktikai ad hoc kommunikáció. Irányvesztés elköteleződés után.</p></div>
+<div class="cb full trust-box"><h4>🔒 Bizalom</h4><p><strong>Építi:</strong> személyes találkozó, hiteles roadmap, vezető víziója.</p></div>
+<div class="cb full journey-box"><h4>🛤️ Donor-út</h4><p><strong>Új:</strong> Vízió + személyes meghívás. Hónapok. <strong>Visszatérő:</strong> milestones. <strong>Elköteleződött:</strong> partnerség, névadó lehetőség, tanácsadó szerep.</p></div>
+<div class="cb full demeter-box"><h4>🏠 Démétér-példa</h4><p>Országos bővítés: „Újabb Démétér Ház nyílhat." Az 1% kommunikációban a rendszerszintű vízió — nem egy gyerek, hanem egy országos megoldás.</p></div>
+<div class="cb full test-box"><h4>🧪 A/B tesztötlet</h4><p><strong>A:</strong> „1% = újabb Démétér Ház." <strong>B:</strong> „Országos Démétér Program" stratégiai vízió. <strong>Metrika:</strong> nagyadó lead-ek, meeting request.</p></div>
+</div></div>
+
+<div id="mag-6" class="core-card core-6 reveal">
+<div class="core-header"><div class="core-avatar">&#9830;</div><div class="core-meta"><div class="core-type">Mag #6 <span class="tag tag-h" style="color:white;background:rgba(255,255,255,.25)">🔬</span></div><div class="core-name">Igazságosság — Kiegyenlítés</div><div class="core-tagline">„Nekem jutott. Visszaadok — diszkréten."</div></div><div class="core-badge">MÉLTÁNYOSSÁG-VEZÉRELT</div></div>
+<div class="core-body">
+<div class="cb"><h4>Döntési mondat</h4><p>„Nekem jutott — másnak nem. Ez nem igazságos, és tehetek ellene." Belső egyensúly, nem hála. Zavarba jönne nyilvános köszönettől.</p></div>
+<div class="cb"><h4>Bizonyítékigény</h4><p>Komoly, nem hatásvadász anyag. Rendszerszintű egyenlőtlenség. Diszkréció ígérete a minimum. Személyes ajánlás zárt körből.</p></div>
+<div class="cb"><h4>Triggerek + csatornák</h4><ul><li>Privilégium-kontraszt — „Te megválasztod…"</li><li>Diszkréció — „csendben, egyszerűen"</li><li>Zárt ajánlás, 1:1 email alapítótól</li><li>CSR-partnerség</li></ul></div>
+<div class="cb"><h4>Hangnem + adomány <span class="tag tag-h">🔬</span></h4><p>Alulfűtött, diszkrét. Emoji: legfeljebb 💙. 100k–2M Ft, csendes, rendszeres. Démétérnél: belső adat kell az arányhoz.</p></div>
+<div class="cb full lose-box"><h4>🚩 Mikor veszíted el?</h4><p>Nem kért nyilvános köszönet. Tolakodó PR. „Kirakat-jótékonykodás." Túl marketinges kommunikáció. Diszkréció-igény ignorálása.</p></div>
+<div class="cb full trust-box"><h4>🔒 Bizalom</h4><p><strong>Építi:</strong> diszkréció + komoly anyag + személyes bizalom. <strong>Rombolja:</strong> nem kért nyilvánosság, hatásvadász kommunikáció.</p></div>
+<div class="cb full journey-box"><h4>🛤️ Donor-út</h4><p><strong>Új:</strong> Kizárólag bizalmi belépés (ajánlás). <strong>Visszatérő:</strong> kevés, mély 1:1 update. <strong>Elköteleződött:</strong> névtelen/strukturált támogatás.</p></div>
+<div class="cb full demeter-box"><h4>🏠 Démétér-példa</h4><p>Publikus adat hiányzik — természetes a diszkrét nagyadónál. Belső validáció szükséges: van-e ilyen szegmens a CRM-ben?</p></div>
+<div class="cb full test-box"><h4>🧪 A/B tesztötlet</h4><p><strong>A:</strong> „Anonim támogatás" opció kiemelése. <strong>B:</strong> Nélküle. <strong>Metrika:</strong> nagyösszegű érdeklődők, „kapcsolat" űrlap completions.</p></div>
+</div></div>
+</div>
+</section>
+
+<section class="overlay-section" id="overlays">
+<div class="overlay-inner">
+<div class="section-label">3 Modulátor / Overlay</div>
+<h2 class="section-title">Nem „miért" — hanem „miért most" és „honnan jött"</h2>
+<p style="font-size:1rem;color:var(--slate);max-width:750px;margin-bottom:2.5rem;line-height:1.7">Kampány-briefben címkeként jelölhetők: pl. „Empátia mag + Sürgősség overlay + Kapcsolati ajánlás overlay."</p>
+
+<div class="overlay-card reveal">
+<div class="overlay-tag">Overlay #1</div>
+<h3>Sürgősség — Időablak</h3>
+<p><strong>Nem „miért", hanem „miért most":</strong> határidő (május 20. 1%), készlethiány, kampányzárás. A sürgősség komprimálja a döntési időt — nem magyarázza a motivációt.</p>
+<p><strong>Démétérnél:</strong> Az 1% szezon (február–május) természetes sürgősség-ablak. Adószám-másolás + eSZJA felületre irányítás = konkrét CTA.</p>
+<p><strong>Kombinációk:</strong> Empátia + sürgősség = „Áron holnap műtétre megy." Hatásosság + sürgősség = „Május 20-ig kell az 1%-os felajánlás." Ágencia + sürgősség = „Ma este kell 50 takaró."</p>
+<p><strong>Vigyázat:</strong> túlhasználat → „crying wolf" hatás. <span class="tag tag-r">📊</span></p>
+</div>
+
+<div class="overlay-card reveal">
+<div class="overlay-tag">Overlay #2 — opcionális</div>
+<h3>Érték-keretezés (hit / morális kötelesség)</h3>
+<p><strong>Nem önálló „miért" Démétérnél,</strong> mert a publikus narratíva nem hit-alapú. Overlay-ként működhet: empátiás történet + „erkölcsi kötelesség" nyelv; igazságosság-mag + „hitünk arra tanít" keretezés.</p>
+<p><strong>Státusz:</strong> <span class="tag tag-h">🔬</span> Maggá emelés csak ha Démétér-saját adat validálja (gyülekezeti csatorna, konkrét partner).</p>
+</div>
+
+<div class="overlay-card reveal">
+<div class="overlay-tag">Overlay #3 — magyar-specifikus</div>
+<h3>Kapcsolati ajánlás / Családi mozgósítás</h3>
+<p><strong>Démétérnél explicit:</strong> a „Démétér-nagyi" kampány nem pénzt kér először, hanem „szólj a gyerekeidnek/unokáidnak." Nem motiváció — belépési csatorna és bizalomhorgony.</p>
+<p><strong>Magyar kontextus:</strong> Intézményi bizalom alacsony, személyhez kötött bizalom magas. „Ha ő mondja, adok" — a legerősebb konverziós erő itthon.</p>
+<p><strong>Kombinációk:</strong> Bármely mag belépője. Különösen erős Hatásosság (csökkenti a bizonyítékigényt) és Jelentőség magnál (személyes referencia nyitja az ajtót).</p>
+</div>
+</div>
+</section>
+
+<section class="comparison-section" id="matrix">
+<div class="comparison-inner">
+<div class="section-label">Összehasonlítás</div>
+<h2 class="section-title">6 mag — egy pillantásra</h2>
+<table class="mtable">
+<thead><tr><th>Mag</th><th>Döntési mondat</th><th>Csatorna</th><th>Hangnem</th><th>Sebesség</th><th>Lemorzsolódás</th><th>Démétér CTA</th></tr></thead>
+<tbody>
+<tr><td><span class="tdot" style="background:var(--rose)"></span><span class="tname">Empátia</span></td><td>„Nem bírom nézni."</td><td>Facebook + landing</td><td>Meleg, emberi</td><td>Percek</td><td>Manipuláció-gyanú</td><td>Történet + adomány link</td></tr>
+<tr><td><span class="tdot" style="background:var(--teal)"></span><span class="tname">Hatásosság</span></td><td>„Célba ér?"</td><td>1% oldal + email</td><td>Tárgyszerű</td><td>Hetek</td><td>Átláthatatlanság</td><td>1% + hatásjelentés</td></tr>
+<tr><td><span class="tdot" style="background:var(--amber)"></span><span class="tname">Identitás</span></td><td>„Család vagyok."</td><td>Közösségi média</td><td>Büszke, bevonó</td><td>Napok</td><td>Közösség elhalkul</td><td>„Legyél Jótündér"</td></tr>
+<tr><td><span class="tdot" style="background:var(--sky)"></span><span class="tname">Ágencia</span></td><td>„500 Ft is számít."</td><td>Telefon + wishlist</td><td>Direkt, egyszerű</td><td>Másodpercek</td><td>Túl bonyolult fizetés</td><td>500 Ft hívás / tétel</td></tr>
+<tr><td><span class="tdot" style="background:var(--violet)"></span><span class="tname">Jelentőség</span></td><td>„Építsünk maradandót."</td><td>Személyes</td><td>Méltóságteljes</td><td>Hónapok</td><td>Nincs vízió</td><td>Országos Program</td></tr>
+<tr><td><span class="tdot" style="background:var(--coral)"></span><span class="tname">Igazságosság</span> <span class="tag tag-h">🔬</span></td><td>„Visszaadok csendben."</td><td>Zárt ajánlás</td><td>Diszkrét</td><td>Hetek–hónapok</td><td>Nem kért nyilvánosság</td><td>Anonim opció</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="theory-section" id="elmeleti">
+<div class="theory-inner">
+<div class="section-label">Elméleti alapok</div>
+<h2 class="section-title">A rendszer pillérjei</h2>
+<p style="font-size:1rem;color:var(--slate);max-width:750px;margin-bottom:2.5rem;line-height:1.7">A 6+3 keretrendszer nem önkényes felosztás — négy független kutatási hagyomány konvergenciájaként jött létre. Mindegyik más szögből erősíti meg ugyanazt a logikát: a donor döntése mögött stabil motiváció áll, amelyre helyzeti aktivátorok rakódnak rá.</p>
+<div class="theory-grid">
+<div class="theory-card reveal">
+<h3>Bekkers &amp; Wiepking: 8 mechanizmus <span class="tag tag-r">📊</span></h3>
+<p>A nonprofit adományozás legátfogóbb meta-elemzése (500+ tanulmány). 8 mechanizmust azonosítanak, amelyek az adományozási döntést magyarázzák. A v4 keretrendszer ebből indul ki:</p>
+<ol><li><strong>Stabil motivációs mechanizmusok</strong> (értékek, hatásosság-percepció, reputáció, pszichológiai jutalom) → ezek lettek a 6 primer mag. Nem szituációfüggők — a donor „belső miért"-jét írják le.</li><li><strong>Helyzeti/aktivációs mechanizmusok</strong> (szükséglet-tudatosítás, megkeresés módja, tranzakciós költség) → ezek lettek a 3 modulátor. Nem önálló motivációk — azt határozzák meg, hogy az adott pillanatban aktiválódik-e a meglévő belső késztetés.</li></ol>
+<p style="margin-top:.6rem;font-size:.85rem;color:var(--slate)">A v3 „8 mód" ezeket keverte: pl. a „Krízis-reagáló" valójában Empátia mag + Sürgősség overlay volt.</p>
+</div>
+<div class="theory-card reveal">
+<h3>Fogg viselkedésmodell: B = MAP <span class="tag tag-r">📊</span></h3>
+<p>BJ Fogg Stanford-i modellje szerint viselkedés (Behavior) csak akkor történik, ha egyszerre van jelen <strong>Motiváció</strong>, <strong>Képesség</strong> (Ability) és <strong>Kiváltó inger</strong> (Prompt).</p>
+<p style="margin-top:.5rem">A 6+3 rendszerben ez így fordítódik le:</p>
+<ol><li><strong>Motivation = a mag.</strong> Az Empátia-vezérelt donor motivált — de csak ha a tartalom megszólítja.</li><li><strong>Ability = súrlódáscsökkentés.</strong> Minél egyszerűbb az adakozás (1 kattintás, QR-kód, 500 Ft hívás), annál alacsonyabb motiváció is elég. Ezért a „Passzív jóakaró" nem külön mag — Ability-probléma.</li><li><strong>Prompt = overlay.</strong> A sürgősség, a családi ajánlás, az érték-keretezés nem motiváció — kiváltó inger, ami „most"-tá teszi a döntést.</li></ol>
+</div>
+<div class="theory-card reveal">
+<h3>JTBD: Jobs-to-Be-Done <span class="tag tag-r">📊</span></h3>
+<p>Clayton Christensen keretrendszere: az ember nem „terméket vesz" — <strong>feladatot old meg</strong>. Az adományozó sem „pénzt ad" — valamit elér vele magának.</p>
+<p style="margin-top:.5rem">Minden mag más „job"-ot végez el a donor fejében:</p>
+<ol><li><strong>Empátia:</strong> „Csökkenteni akarom ezt a rossz érzést, amit látok."</li><li><strong>Hatásosság:</strong> „Tudni akarom, hogy a pénzem nem vész el."</li><li><strong>Identitás:</strong> „Olyan ember akarok lenni, aki tesz valamit."</li><li><strong>Ágencia:</strong> „Nem vagyok tehetetlen — meg tudom tenni."</li><li><strong>Jelentőség:</strong> „Maradandót akarok hagyni magam után."</li><li><strong>Igazságosság:</strong> „Ki akarom egyenlíteni azt, ami nem fair."</li></ol>
+<p style="margin-top:.5rem;font-size:.85rem;color:var(--slate)">A JTBD teszi a rendszert kampány-briefre fordíthatóvá: ha tudod a „job"-ot, tudod a CTA-t, a hangnemet és a bizonyítékot.</p>
+</div>
+<div class="theory-card reveal">
+<h3>Magyar kontextus: platformadat + bizalom <span class="tag tag-r">📊</span></h3>
+<p>A nemzetközi elméletek önmagukban nem elégek — a magyar nonprofit környezet sajátos:</p>
+<ol><li><strong>Adjukössze platformadat:</strong> medián adomány ~2.000 Ft, átlag ~4.957 Ft. A mikroadományok dominálnak — az Ágencia mag relevanciáját erősíti.</li><li><strong>SZJA 1%:</strong> országosan ~20,27 Mrd Ft évente a civil szektorba. Démétérnél ez létfontosságú bevételi forrás, saját kampányszezonnal (február–május).</li><li><strong>Alacsony intézményi bizalom:</strong> Magyarországon az intézményi bizalomszint az EU legalacsonyabbjai közé tartozik. Ezért a Kapcsolati ajánlás overlay itt erősebb aktivátor, mint Nyugat-Európában — „ha ő mondja, adok" erősebb, mint „ha a szervezet mondja."</li><li><strong>Szabályozási hiány:</strong> a magyar nonprofit szabályozás nem szűri ki hatékonyan a problémás szereplőket — a Hatásosság/Kontroll mag (transzparencia, overhead ratio) ezért fontosabb differenciátor, mint fejlettebb piacokon.</li></ol>
+</div>
+</div>
+</div>
+</section>
+
+
+<section class="incubation-section" id="inkubacio">
+<div class="incubation-inner">
+<div class="section-label">Függelék</div>
+<h2 class="section-title">Parkoltatott elemek — inkubáció</h2>
+<p style="font-size:.95rem;color:var(--slate);max-width:750px;margin-bottom:2rem;line-height:1.7">A korábban felmerült archetípusok kezelése:</p>
+<div class="incubation-card reveal"><h4>Kapcsolati bizalom-vezérelt → Overlay: Kapcsolati ajánlás</h4><p>Nem önálló „miért" — belépési csatorna. Démétérnél már erős (Démétér-nagyi). Overlay-ként minden magra ráülhet.</p></div>
+<div class="incubation-card reveal"><h4>Pragmatikus helyi segítő → Csatorna/offer variáns</h4><p>A „helyi, kézzelfogható" inkább offer-kérdés (kívánságlista tételek). Az Ágencia mag + helyi offer fedi le.</p></div>
+<div class="incubation-card reveal"><h4>Passzív jóakaró → Súrlódáscsökkentés szabály</h4><p>Nem célcsoport — Fogg-modell: Ability + Prompt maximalizálás. 500 Ft telefonos és 1% online egyszerűsítés. <span class="tag tag-r">📊</span></p></div>
+<div class="promo-rule">
+<h3>Mikor emelsz inkubált elemet „teljes maggá"?</h3>
+<ol>
+<li><strong>Független prediktor:</strong> a „miért" önmagában megmagyarázza a konverziót, más magoktól függetlenül.</li>
+<li><strong>Eltérő optimum:</strong> más csatornán / hangnemben / bizonyítékkal működik a legjobban.</li>
+<li><strong>Stabil ismétlődés:</strong> 2–3 kampányidőszakon át ugyanaz a mintázat (nem egyszeri).</li>
+</ol>
+</div>
+</div>
+</section>
+
+<footer class="site-footer">
+<p>Démétérre optimalizált donor motivációs keretrendszer — v4 — 2026. március</p>
+<p style="margin-top:.5rem;font-size:.72rem;opacity:.6">Bekkers &amp; Wiepking (2011) · Christensen JTBD · Fogg B=MAP · Stanford d.school · Adjukössze platformadat · NAV SZJA 1% statisztika</p>
+<p style="margin-top:.5rem"><span style="color:var(--gold)">📊</span> = kutatás-alapú &nbsp;&nbsp; <span style="color:var(--amber)">🔬</span> = Démétér-hipotézis, validálandó</p>
+</footer>
+
+<script>
+const observer=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&e.target.classList.add('visible')})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+const navLinks=document.querySelectorAll('.floating-nav a');
+const sects=document.querySelectorAll('section[id],div[id]');
+const navObs=new IntersectionObserver(e=>{e.forEach(entry=>{if(entry.isIntersecting){const id=entry.target.id;navLinks.forEach(l=>{l.classList.toggle('active',l.getAttribute('href')==='#'+id)})}})},{rootMargin:'-30% 0px -70% 0px'});
+sects.forEach(s=>navObs.observe(s));
+navLinks.forEach(l=>{l.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(l.getAttribute('href'));t&&t.scrollIntoView({behavior:'smooth',block:'start'})})});
+</script>
+</body>
+</html>
